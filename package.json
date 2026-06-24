@@ -1,0 +1,34 @@
+{
+  "name": "windows-copilot-agent",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Unofficial Microsoft Copilot bridge with an OpenAI-compatible API",
+  "main": "dist/index.js",
+  "exports": "./dist/index.js",
+  "bin": {
+    "copilot-agent": "dist/cli.js"
+  },
+  "scripts": {
+    "dev": "tsx src/cli.ts serve",
+    "login": "tsx src/cli.ts login",
+    "ask": "tsx src/cli.ts ask",
+    "diagnose": "tsx src/cli.ts diagnose",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/cli.js serve",
+    "test": "npm run build --silent && node tests/run.mjs",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "fastify": "^5.0.0",
+    "playwright": "1.60.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

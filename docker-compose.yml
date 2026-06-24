@@ -1,0 +1,16 @@
+services:
+  copilot-agent:
+    build: .
+    image: windows-copilot-agent
+    ports:
+      - "8000:8000"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8000"
+      RATE_LIMIT_RPM: "12"
+      RATE_LIMIT_BURST: "4"
+      COPILOT_HEADLESS: "true"
+    volumes:
+      - ./session:/app/session
+    init: true
+    restart: unless-stopped
