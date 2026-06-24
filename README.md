@@ -1,6 +1,6 @@
 # Windows Copilot Agent
 
-An unofficial Node.js/TypeScript client and OpenAI-compatible local API for Microsoft Copilot consumer chat.
+A Node.js/TypeScript client and OpenAI-compatible local API for Microsoft Copilot consumer chat.
 
 The project runs Copilot requests inside a real Chromium page context. This reuses the browser's TLS fingerprint, cookies, authenticated session, and Cloudflare clearance for both REST and WebSocket traffic.
 

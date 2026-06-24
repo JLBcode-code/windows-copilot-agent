@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "type": "module",
-  "description": "Unofficial Microsoft Copilot bridge with an OpenAI-compatible API",
+  "description": "Microsoft Copilot bridge with an OpenAI-compatible API",
   "main": "dist/index.js",
   "exports": "./dist/index.js",
   "bin": {

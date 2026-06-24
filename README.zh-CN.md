@@ -1,6 +1,6 @@
 # Windows Copilot Agent
 
-一个非官方的 Node.js/TypeScript Microsoft Copilot 客户端，同时提供兼容 OpenAI 的本地 API。
+一个 Node.js/TypeScript Microsoft Copilot 客户端，同时提供兼容 OpenAI 的本地 API。
 
 项目在真实 Chromium 页面上下文中发送 Copilot 请求，因此 REST 和 WebSocket 流量可以复用浏览器的 TLS 指纹、Cookie、登录会话与 Cloudflare 验证状态。
 
