@@ -3,6 +3,7 @@ import { errorMessage } from "./errors.js";
 
 export async function interactiveLogin(timeoutMs = 5 * 60_000): Promise<void> {
   const browser = new BrowserSession(false);
+  const loginStartedAt = Date.now();
   try {
     await browser.start();
     console.log("A browser is open at copilot.microsoft.com.");
@@ -10,6 +11,12 @@ export async function interactiveLogin(timeoutMs = 5 * 60_000): Promise<void> {
     const deadline = Date.now() + timeoutMs;
     let warmupAttempted = false;
     while (Date.now() < deadline) {
+      // Google-backed sessions keep the MSAL token encrypted, so the token may
+      // only be observable on the chat WebSocket and saved by its listener.
+      if (browser.sessionSavedAt >= loginStartedAt) {
+        console.log("Copilot session saved.");
+        return;
+      }
       const token = await browser.findPageToken();
       if (token) {
         await browser.ensureAuthenticated();
@@ -27,7 +34,9 @@ export async function interactiveLogin(timeoutMs = 5 * 60_000): Promise<void> {
           console.warn("Send one short message in the browser to finish token capture.");
         }
       }
-      await browser.page.waitForTimeout(500);
+      // Login redirects replace the page execution context. A Node-side delay
+      // keeps polling independent from the currently loaded document.
+      await new Promise((resolve) => setTimeout(resolve, 500));
     }
     throw new Error("Sign-in timed out after 5 minutes");
   } finally {

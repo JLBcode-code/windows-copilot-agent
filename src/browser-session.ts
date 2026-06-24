@@ -32,6 +32,10 @@ export class BrowserSession {
     return this.#page;
   }
 
+  get sessionSavedAt(): number {
+    return this.#snapshot?.savedAt ?? 0;
+  }
+
   async start(): Promise<void> {
     if (this.#page && !this.#page.isClosed()) return;
     if (this.#starting) return this.#starting;
@@ -95,7 +99,7 @@ export class BrowserSession {
         } catch { /* ignore unrelated local storage */ }
       }
       return fallback;
-    });
+    }).catch(() => undefined);
   }
 
   async isSignedIn(): Promise<boolean> {
@@ -110,7 +114,7 @@ export class BrowserSession {
         } catch { /* continue */ }
       }
       return false;
-    });
+    }).catch(() => false);
   }
 
   async createConversation(): Promise<string> {
